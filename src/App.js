@@ -1,62 +1,70 @@
 import React, { Component } from 'react';
-import Section from './Section';
-import Phonebook from './Phonebook';
+import ContactForm from './ContactForm';
+import ContactList from './ContactList';
+import Filter from './Filter';
 
 const { v4: uuidv4 } = require('uuid');
-console.log(uuidv4());
+// console.log(uuidv4());
 
 class App extends Component {
   state = {
-    contacts: [],
-    // filtr: '',
-    name: '',
-    number: '',
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filtr: '',
   };
 
-  handleCheange = event => {
-    const { name, value } = event.currentTarget;
-    this.setState({
-      [name]: value,
-    });
+  // handleCheange = event => {
+  //   const { name, value } = event.currentTarget;
+  //   this.setState({
+  //     [name]: value,
+  //   });
+  // };
+
+  addContact = ({ name, number }) => {
+    const contact = {
+      id: uuidv4(),
+      name,
+      number,
+    };
+
+    this.setState(({ contacts }) => ({
+      contacts: contacts.includes(contact.name)
+        ? alert('is аlready')
+        : [contact, ...contacts],
+    }));
+  };
+
+  changeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
+  getVisibleContact = () => {
+    const { filter, contacts } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+
+    return contacts.filter(contact =>
+      contact.text.toLowerCase().includes(normalizedFilter),
+    );
   };
 
   render() {
-    const name = 'Ivan Pupkin';
+    const { contacts, filter } = this.state;
+    const visibleContacts = this.getVisibleContact();
+
     return (
       <>
-        <form>
-          <label>
-            Name
-            <input
-              type="text"
-              name="name"
-              value={this.state.name}
-              onChange={this.handleCheange}
-            />
-          </label>
-          <label>
-            Number
-            <input
-              type="number"
-              name="number"
-              value={this.state.number}
-              onChange={this.handleCheange}
-            />
-          </label>
+        <div>
+          <h1>Phonebook</h1>
+          <ContactForm onSubmit={this.addContact} />
 
-          <button
-            key={uuidv4()}
-            type="submit"
-            // onClick={onLeaveFeedback}
-          >
-            Add contact
-          </button>
-        </form>
-
-        <Section title="Phonebook">
-          <Phonebook name={name} id={uuidv4()} />
-        </Section>
-        <Section title="Contacts"></Section>
+          <h2>Contacts</h2>
+          <Filter value={filter} onChange={this.changeFilter} />
+          <ContactList contacts={contacts} />
+        </div>
       </>
     );
   }
