@@ -9,10 +9,10 @@ import Filter from './componets/Filter';
 class App extends Component {
   state = {
     contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+      { id: 'id-1', name: 'Oleg Pupkin', number: '459-12-56' },
+      { id: 'id-2', name: 'Nastyshka Opasnost', number: '443-89-12' },
+      { id: 'id-3', name: 'Gore Programist', number: '645-17-79' },
+      { id: 'id-4', name: 'Ruki Kryki', number: '227-91-26' },
     ],
     filter: '',
   };
@@ -68,9 +68,12 @@ class App extends Component {
         <ContactForm onAddContact={this.addContact} />
 
         <h2>Contacts</h2>
-        {visibleContacts.length > 1 && (
+        {/* вариант 1 - скрытый поиск по имени ==> не нравится отображеие! */}
+        {/* {visibleContacts.length >= 1 && (
           <Filter value={filter} onChangeFilter={this.changeFilter} />
-        )}
+        )} */}
+
+        <Filter value={filter} onChangeFilter={this.changeFilter} />
 
         {visibleContacts.length > 0 && (
           <ContactList

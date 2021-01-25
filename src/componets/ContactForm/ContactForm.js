@@ -1,3 +1,4 @@
+import styles from './ContactForm.module.css';
 import { Component } from 'react';
 const { v4: uuidv4 } = require('uuid');
 
@@ -35,25 +36,32 @@ class ContactForm extends Component {
   render() {
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor={this.nameInputId}>
+        <form className={styles.TaskEditor} onSubmit={this.handleSubmit}>
+          <label className={styles.TaskEditor_label} htmlFor={this.nameInputId}>
             Name
             <input
+              className={styles.TaskEditor_input}
               type="text"
               name="name"
               value={this.state.name}
               onChange={this.handleCheange}
             />
           </label>
-          <label htmlFor={this.numberInputId}>
+          <label
+            className={styles.TaskEditor_label}
+            htmlFor={this.numberInputId}
+          >
             Number
             <input
+              className={styles.TaskEditor_input}
               type="number"
               name="number"
               value={this.state.number}
               onChange={this.handleCheange}
             />
-            <button type="submit">Add contact</button>
+            <button className={styles.TaskEditor_button} type="submit">
+              Add contact
+            </button>
           </label>
         </form>
       </>
