@@ -17,7 +17,9 @@ class ContactForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state);
+
+    this.props.onAddContact({ ...this.state });
+
     this.reset();
   };
 
