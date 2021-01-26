@@ -10,14 +10,16 @@ const ContactList = ({ contacts, onRemoveContact }) => (
       <li className={styles.TaskList_item} key={contact.id}>
         {contact.name + ' : ' + contact.number}
         {
-          <button
-            className={styles.TaskList_button}
-            type="button"
-            name="delte"
-            onClick={() => onRemoveContact(contact.id)}
-          >
-            delete
-          </button>
+          <div className={styles.divRelativeButton}>
+            <button
+              className={styles.TaskList_button}
+              type="button"
+              name="delte"
+              onClick={() => onRemoveContact(contact.id)}
+            >
+              delete
+            </button>
+          </div>
         }
       </li>
     ))}

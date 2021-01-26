@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 import ContactForm from './componets/ContactForm';
 import ContactList from './componets/ContactList';
 import Filter from './componets/Filter';
@@ -18,20 +18,61 @@ class App extends Component {
   };
 
   addContact = task => {
+    const contact = {
+      ...task,
+      // id: uuidv4(),
+      id: task.name,
+    };
+
+    // if (task.name === 0) {
+    //   this.showNotification('Please enter contact name');
+    //   return;
+    // }
+
+    // if (task.number === 0) {
+    //   this.showNotification('Please enter contact number');
+    //   return;
+    // }
+
+    // const hasContact = this.state.contacts.some(
+    //   contact => contact.name === task.name,
+    // );
+
+    // hasContact
+    //   ? this.showNotification(`${task.name} is already in contacts`)
+    //   : this.setState(prevState => ({
+    //       contacts: [...prevState.contacts, contact],
+    //     }));
+
     const searchSameName = this.state.contacts
       .map(cont => cont.name)
       .includes(task.name);
+
+    // if (task.name === 0) {
+    //   alert(`${task.name} is already in contacts`);
+    //   return;
+    // }
+
+    // if (task.number === 0) {
+    //   alert(`${task.number} is already in number`);
+    //   return;
+    // }
+
+    // if (searchSameName) {
+    //   alert(`${task.name} is already in contacts`);
+    // } else if (task.name.length === 0) {
+    //   alert('Fields must be filled!');
+    // } else {
+    //   this.setState(prevState => ({
+    //     contacts: [...prevState.contacts, contact],
+    //   }));
+    // }
 
     if (searchSameName) {
       alert(`${task.name} is already in contacts`);
     } else if (task.name.length === 0) {
       alert('Fields must be filled!');
     } else {
-      const contact = {
-        ...task,
-        id: uuidv4(),
-      };
-
       this.setState(prevState => ({
         contacts: [...prevState.contacts, contact],
       }));
